@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Lara Company Home Page</title>
+</head>
+<body>
+
+    <h2>Lara Company Home Page</h2>
+    <hr>
+    <p>
+    Welcome to Lara's company home page! :)
+    </p>
+
+    <hr>
+
+    <!-- Mostrar username y rol(es) -->
+    <p>
+        User: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </p>
+
+    <div sec:authorize="hasRole('MANAGER')">
+
+<!-- Añadir un link para que apunte a /leaders - para los managers -->
+    <p>
+        <a th:href="@{/leaders}">Leadership Meeting</a>
+        (Only for Manager peeps)
+    </p>
+
+    </div>
+
+    <div sec:authorize="hasRole('ADMIN')">
+    <!-- añadir link para que apunte a /systems -->
+
+    <p>
+        <a th:href="@{/systems}">IT Systems Meeting</a>
+        (Only for Admin peeps)
+    </p>
+    </div>
+
+    <hr>
+    <!-- Añadir boton de logout -->
+    <form action="#" th:action="@{/logout}" method="POST">
+
+        <input type="submit" value="Logout"/>
+
+    </form>
+
+
+</body>
+</html>
